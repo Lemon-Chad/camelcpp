@@ -10,7 +10,6 @@
 
 class RuntimeContext {
 private:
-    RuntimeContext* parentContext;
     vector<Field*> fieldList;
 
     vector<Value*> argumentList;
@@ -26,6 +25,8 @@ public:
     Value* getArgument();
 
     bool hasArgument();
+
+    RuntimeContext* parentContext;
 };
 
 

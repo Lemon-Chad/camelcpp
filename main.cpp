@@ -38,6 +38,7 @@ int main(int argumentCount, char *arguments[]) {
             i--;
             continue;
         }
+        //cout << Helper::tokenTypeName(token.getType()) << " " << token.getContent() << endl;
     }
 
     TokenIterator tokenIterator = TokenIterator(tokenList);

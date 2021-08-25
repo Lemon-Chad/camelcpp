@@ -7,9 +7,8 @@ Value * NodeCompoundStatement::interpret(RuntimeEnvironment &environment, Runtim
     for (NodeStatement* statement : statementList) {
         Value* statementValue = statement->interpret(environment, context);
 
-        if (dynamic_cast<LiteralReturn*>(statementValue)) {
+        if (dynamic_cast<LiteralReturn*>(statementValue))
             return dynamic_cast<LiteralReturn *>(statementValue)->getValue();
-        }
     }
 
     return nullptr;

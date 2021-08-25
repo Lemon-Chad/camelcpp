@@ -2,11 +2,15 @@
 #ifndef CAMELCPP_FUNCTION_H
 #define CAMELCPP_FUNCTION_H
 
+#include <vector>
+
+using namespace std;
+
 
 class Function: public Value {
 
 public:
-    virtual Value* invokeFunction(RuntimeEnvironment &, RuntimeContext &) = 0;
+    virtual Value* invokeFunction(RuntimeEnvironment &, vector<Value *> &) = 0;
 
     Field* accessField(vector<string>) override { return nullptr; }
     Field* createField(string, Value*) override { return nullptr; }

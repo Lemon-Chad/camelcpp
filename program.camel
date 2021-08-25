@@ -1,5 +1,11 @@
-!someFunction {
-    print("Hello", "World")
-}
+!Person {
+    !name(param)
 
-someFunction()
+    !sayHello {
+        print("Hello", name)
+    }
+
+    return(self)
+}
+!variablePerson(Person("Mastadons"))
+variablePerson.sayHello()

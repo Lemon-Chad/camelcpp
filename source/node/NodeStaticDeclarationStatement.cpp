@@ -12,7 +12,7 @@ Value * NodeStaticDeclarationStatement::interpret(RuntimeEnvironment &environmen
 
     Instance* instance = new Instance(environment, internalContext);
 
-    context.createField(identifier, reinterpret_cast<Value *&>(instance));
+    context.createField(identifier, instance);
 
     return instance;
 }

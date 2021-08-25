@@ -1,7 +1,10 @@
 class PrintFunction: public Function {
 
 public:
-    Value* invokeFunction(RuntimeEnvironment &environment, RuntimeContext &context) {
+    Value* invokeFunction(RuntimeEnvironment &environment, vector<Value*> &arguments) override {
+        RuntimeContext* parentContext = environment.getContext();
+        RuntimeContext context = RuntimeContext(parentContext, arguments);
+
         if (context.hasArgument())
             cout << context.getArgument()->toString();
 

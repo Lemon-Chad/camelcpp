@@ -9,16 +9,16 @@
 #include "DefaultFunctions.cpp"
 
 void Interpreter::interpret(NodeCompoundStatement &statement) {
-    RuntimeEnvironment environment = RuntimeEnvironment();
-
     RuntimeContext* parentContext = nullptr;
-    RuntimeContext context = RuntimeContext(parentContext);
+    RuntimeContext* context = new RuntimeContext(parentContext);
+
+    RuntimeEnvironment environment = RuntimeEnvironment(context);
 
     Value* value = nullptr;
-    context.createField("none", value);
+    context->createField("none", value);
 
     Function* printFunction = new PrintFunction();
-    context.createField("print", reinterpret_cast<Value *&>(printFunction));
+    context->createField("print", reinterpret_cast<Value *&>(printFunction));
 
-    statement.interpret(environment, context);
+    statement.interpret(environment, *context);
 }

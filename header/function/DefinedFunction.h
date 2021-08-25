@@ -12,7 +12,7 @@ private:
 public:
     DefinedFunction(RuntimeContext &, NodeEnclosedCompoundStatement &);
 
-    Value* invokeFunction(RuntimeEnvironment &, RuntimeContext &) override;
+    Value* invokeFunction(RuntimeEnvironment &, vector<Value *> &) override;
 
     string toString() override;
 };

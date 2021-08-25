@@ -15,6 +15,7 @@ Value * NodeVariable::interpret(RuntimeEnvironment &environment, RuntimeContext 
         return context.getArgument();
 
     Field* field = context.accessField(identifiers);
+
     if (field != nullptr) return field->getValue();
     return nullptr;
 }

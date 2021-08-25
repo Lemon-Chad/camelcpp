@@ -156,9 +156,9 @@ Token Tokenizer::tokenizeIdentifier(CharacterReader &reader)
     if (identifier == "true" || identifier == "false")
         return Token(TokenType::BOOLEAN, identifier);
 
-    const int keywordsLength = 5;
+    const int keywordsLength = 4;
 
-    const char *keywordIdentifiers[keywordsLength] = {"if", "then", "or", "loop", "static"};
+    const char *keywordIdentifiers[keywordsLength] = {"if", "then", "or", "loop"};
 
     for (int i=0; i<keywordsLength; i++)
     {
@@ -204,7 +204,7 @@ TokenType::TokenType fromDoubleOperation(string operation)
     if (operation == "!=") return TokenType::OPERATOR_NOT_EQUAL;
     if (operation == "&&") return TokenType::LOGICAL_AND;
     if (operation == "||") return TokenType::LOGICAL_OR;
-    if (operation == "!!") return TokenType::OPERATOR_NOT;
+    if (operation == "!!") return TokenType::STATIC;
     return TokenType::UNKNOWN;
 }
 

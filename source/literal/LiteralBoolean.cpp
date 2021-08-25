@@ -6,7 +6,7 @@ using namespace std;
 LiteralBoolean::LiteralBoolean(bool value) : value(value) {}
 
 Value *LiteralBoolean::performUnaryOperation(Operation::Operation operation) {
-    if (operation == Operation::UNARY_NOT)
+    if (operation == Operation::SUBTRACTION)
     {
         return new LiteralBoolean(!value);
     }
