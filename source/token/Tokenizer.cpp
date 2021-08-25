@@ -110,9 +110,9 @@ Token Tokenizer::tokenizeStringLiteral(CharacterReader &reader)
 Token Tokenizer::tokenizeOperation(CharacterReader &reader)
 {
     if (reader.peek()) {
-        const int operatorsLength = 10;
+        const int operatorsLength = 11;
 
-        const char *doubleCharacterOperators[operatorsLength] = {"+=", "-=", "*=", "/=", ">=", "<=", "==", "!=", "&&", "||"};
+        const char *doubleCharacterOperators[operatorsLength] = {"+=", "-=", "*=", "/=", ">=", "<=", "==", "!=", "&&", "||", "!!"};
 
         string possibleOperator = reader.curr_str() + reader.peek_str();
 
@@ -156,9 +156,9 @@ Token Tokenizer::tokenizeIdentifier(CharacterReader &reader)
     if (identifier == "true" || identifier == "false")
         return Token(TokenType::BOOLEAN, identifier);
 
-    const int keywordsLength = 6;
+    const int keywordsLength = 5;
 
-    const char *keywordIdentifiers[keywordsLength] = {"define", "if", "then", "or", "loop", "static"};
+    const char *keywordIdentifiers[keywordsLength] = {"if", "then", "or", "loop", "static"};
 
     for (int i=0; i<keywordsLength; i++)
     {
@@ -179,7 +179,7 @@ TokenType::TokenType fromSingleOperation(char operation)
         case '-': return TokenType::OPERATOR_SUB;
         case '*': return TokenType::OPERATOR_MUL;
         case '/': return TokenType::OPERATOR_DIV;
-        case '!': return TokenType::OPERATOR_NOT;
+        case '!': return TokenType::DEFINITION;
         case '>': return TokenType::OPERATOR_MORE_THAN;
         case '<': return TokenType::OPERATOR_LESS_THAN;
         case ',': return TokenType::SEPARATOR;
@@ -204,12 +204,12 @@ TokenType::TokenType fromDoubleOperation(string operation)
     if (operation == "!=") return TokenType::OPERATOR_NOT_EQUAL;
     if (operation == "&&") return TokenType::LOGICAL_AND;
     if (operation == "||") return TokenType::LOGICAL_OR;
+    if (operation == "!!") return TokenType::OPERATOR_NOT;
     return TokenType::UNKNOWN;
 }
 
 TokenType::TokenType fromKeyword(string keyword)
 {
-    if (keyword == "define") return TokenType::DEFINITION;
     if (keyword == "if") return TokenType::CONDITION;
     if (keyword == "or") return TokenType::OR;
     if (keyword == "then") return TokenType::THEN;

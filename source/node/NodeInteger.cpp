@@ -4,7 +4,7 @@
 
 NodeInteger::NodeInteger(int value) : value(value) {}
 
-Value * NodeInteger::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeInteger::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     return new LiteralInteger(value);
 }
 

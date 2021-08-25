@@ -17,7 +17,7 @@ public:
 
     NodeDecimal(float);
 
-    Value * interpret(RuntimeEnvironment, RuntimeContext);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
 
     float getValue() { return value; }
 };

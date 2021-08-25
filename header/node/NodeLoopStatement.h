@@ -13,7 +13,7 @@ private:
 public:
     NodeLoopStatement(Node* &, NodeEnclosedCompoundStatement);
 
-    Value * interpret(RuntimeEnvironment, RuntimeContext);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
 
     Node* getExpression() { return expression; }
     NodeEnclosedCompoundStatement getCompoundStatement() { return compoundStatement; }

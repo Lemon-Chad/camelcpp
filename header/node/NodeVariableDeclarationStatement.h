@@ -12,7 +12,7 @@ private:
 public:
     NodeVariableDeclarationStatement(vector<string>, Node* &);
 
-    Value * interpret(RuntimeEnvironment, RuntimeContext);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
 
     vector<string> getIdentifiers() { return identifiers; }
     Node* getValue() { return value; }

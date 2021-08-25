@@ -17,7 +17,7 @@ private:
 public:
     NodeArgumentList(const vector<Node*> &);
 
-    Value * interpret(RuntimeEnvironment, RuntimeContext);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
 
     vector<Node*> getArgumentList() { return argumentList; }
 };

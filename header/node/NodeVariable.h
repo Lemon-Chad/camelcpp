@@ -18,7 +18,7 @@ private:
 public:
     NodeVariable(vector<string> identifiers);
 
-    Value * interpret(RuntimeEnvironment, RuntimeContext);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
 
     vector<string> getIdentifiers() { return identifiers; }
 };

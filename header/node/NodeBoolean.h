@@ -15,7 +15,7 @@ public:
 
     NodeBoolean(bool);
 
-    Value * interpret(RuntimeEnvironment, RuntimeContext);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
 
     bool getValue() { return value; }
 };

@@ -5,14 +5,14 @@
 NodeFunctionDeclarationStatement::NodeFunctionDeclarationStatement(NodeVariable variable, NodeEnclosedCompoundStatement compoundStatement)
 : variable(variable), compoundStatement(compoundStatement) {}
 
-Value * NodeFunctionDeclarationStatement::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeFunctionDeclarationStatement::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     DefinedFunction* function = new DefinedFunction(context, compoundStatement);
 
     vector<string> identifiers = variable.getIdentifiers();
 
-    if (identifiers.size() == 1)
-    {
-        context.createField(identifiers[0], reinterpret_cast<Value *&>(function));
+    if (identifiers.size() == 1) {
+        context.createField(identifiers[0], function);
+
         return function;
     }
 

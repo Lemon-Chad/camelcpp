@@ -3,6 +3,6 @@
 
 NodeEnclosedCompoundStatement::NodeEnclosedCompoundStatement(NodeCompoundStatement* enclosedStatement) : enclosedStatement(enclosedStatement) {}
 
-Value * NodeEnclosedCompoundStatement::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeEnclosedCompoundStatement::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     return enclosedStatement->interpret(environment, context);
 }

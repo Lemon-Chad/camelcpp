@@ -3,7 +3,7 @@
 NodeVariableDeclarationStatement::NodeVariableDeclarationStatement(vector<string> identifiers, Node* &value)
 : identifiers(identifiers), value(value) {}
 
-Value * NodeVariableDeclarationStatement::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeVariableDeclarationStatement::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     Value* value = this->value->interpret(environment, context);
 
     if (identifiers.size() == 1) {

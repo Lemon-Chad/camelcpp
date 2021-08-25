@@ -3,7 +3,7 @@
 
 NodeBoolean::NodeBoolean(bool value) : value(value) {}
 
-Value * NodeBoolean::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeBoolean::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     return new LiteralBoolean(value);
 }
 

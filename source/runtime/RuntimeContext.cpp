@@ -22,7 +22,7 @@ Field* RuntimeContext::accessField(vector<string> &accessedPath) {
     return accessedField->getValue()->accessField(accessedPath2);
 }
 
-Field* RuntimeContext::createField(string createdName, Value* &createdValue) {
+Field* RuntimeContext::createField(string createdName, Value* createdValue) {
     Field* accessedField = getField(createdName);
 
     if (accessedField != nullptr) throw "FieldExists";
@@ -35,9 +35,8 @@ Field* RuntimeContext::createField(string createdName, Value* &createdValue) {
 }
 
 Field* RuntimeContext::getField(string fieldName) {
-    for (Field* field : fieldList) {
+    for (Field* field : fieldList)
         if (field->getName() == fieldName) return field;
-    }
 
     return nullptr;
 }

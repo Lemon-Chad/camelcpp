@@ -15,7 +15,7 @@ private:
 public:
     NodeStaticDeclarationStatement(string, NodeEnclosedCompoundStatement*);
 
-    Value * interpret(RuntimeEnvironment, RuntimeContext);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
 
     string getIdentifier() { return identifier; }
     NodeEnclosedCompoundStatement* getCompoundStatement() { return compoundStatement; }

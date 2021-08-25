@@ -13,7 +13,7 @@ public:
 
     NodeString(string);
 
-    Value * interpret(RuntimeEnvironment, RuntimeContext);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
 
     string getValue() { return value; }
 };

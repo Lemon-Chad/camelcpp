@@ -7,12 +7,14 @@
 
 NodeVariable::NodeVariable(vector<string> identifiers) : identifiers(identifiers) {}
 
-Value * NodeVariable::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeVariable::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     if (identifiers.size() == 1 && identifiers[0] == "self")
         return new Instance(environment, context);
 
     if (identifiers.size() == 1 && identifiers[0] == "param")
         return context.getArgument();
 
-    return context.accessField(identifiers)->getValue();
+    Field* field = context.accessField(identifiers);
+    if (field != nullptr) return field->getValue();
+    return nullptr;
 }

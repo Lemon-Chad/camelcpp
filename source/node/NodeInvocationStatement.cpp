@@ -5,20 +5,20 @@
 NodeInvocationStatement::NodeInvocationStatement(NodeVariable variable, NodeArgumentList argumentList)
         : variable(variable), argumentList(argumentList) {}
 
-Value * NodeInvocationStatement::interpret(RuntimeEnvironment environment, RuntimeContext context) {
-    Value* variableValue = variable.interpret(environment, context);
+Value * NodeInvocationStatement::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
+    Value *variableValue = variable.interpret(environment, context);
 
-    vector<Value*> arguments;
+    vector<Value *> arguments;
 
-    for (Node* argumentNode : argumentList.getArgumentList())
+    for (Node *argumentNode : argumentList.getArgumentList())
         arguments.push_back(argumentNode->interpret(environment, context));
 
-    RuntimeContext* parentContext = &context;
+    RuntimeContext *parentContext = &context;
 
     RuntimeContext internalContext = RuntimeContext(parentContext, arguments);
 
-    if (dynamic_cast<Function*>(variableValue)) {
-        Function *function = dynamic_cast<Function*>(variableValue);
+    if (dynamic_cast<Function *>(variableValue)) {
+        Function *function = dynamic_cast<Function *>(variableValue);
 
         return function->invokeFunction(environment, internalContext);
     }
@@ -26,7 +26,7 @@ Value * NodeInvocationStatement::interpret(RuntimeEnvironment environment, Runti
     vector<string> identifiers = variable.getIdentifiers();
 
     if (identifiers.size() == 1 && identifiers[0] == "return")
-        return arguments[0];
+        return new LiteralReturn(arguments[0]);
 
     if (arguments.empty())
         context.accessField(identifiers)->setValue(nullptr);

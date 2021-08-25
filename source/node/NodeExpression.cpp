@@ -3,7 +3,7 @@
 
 NodeExpression::NodeExpression(Node* &term, list<Operand> &operandList) : term(term), operandList(operandList) {}
 
-Value * NodeExpression::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeExpression::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     Value* expressionValue = term->interpret(environment, context);
 
     for (Operand operand : operandList) {

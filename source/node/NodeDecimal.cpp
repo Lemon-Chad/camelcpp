@@ -4,7 +4,7 @@
 
 NodeDecimal::NodeDecimal(float value) : value(value) {}
 
-Value * NodeDecimal::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeDecimal::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     return new LiteralDecimal(value);
 }
 

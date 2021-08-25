@@ -13,7 +13,7 @@ private:
 public:
     NodeCompoundStatement(const list<NodeStatement*> & statementList);
 
-    Value * interpret(RuntimeEnvironment, RuntimeContext);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
 
     list<NodeStatement*> getStatementList() { return statementList; }
 };

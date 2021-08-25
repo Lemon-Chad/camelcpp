@@ -3,7 +3,7 @@
 
 NodeString::NodeString(string value) : value(value) {}
 
-Value * NodeString::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeString::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     return new LiteralString(value);
 }
 

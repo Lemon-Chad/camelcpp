@@ -20,7 +20,7 @@ public:
     RuntimeContext(RuntimeContext* &);
 
     Field* accessField(vector<string> &);
-    Field* createField(string, Value* &);
+    Field* createField(string, Value*);
 
     Field* getField(string);
     Value* getArgument();

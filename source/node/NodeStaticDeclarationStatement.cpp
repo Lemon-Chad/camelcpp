@@ -5,7 +5,7 @@
 NodeStaticDeclarationStatement::NodeStaticDeclarationStatement(string identifier, NodeEnclosedCompoundStatement* compoundStatement)
 : identifier(identifier), compoundStatement(compoundStatement) {}
 
-Value * NodeStaticDeclarationStatement::interpret(RuntimeEnvironment environment, RuntimeContext context) {
+Value * NodeStaticDeclarationStatement::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
     RuntimeContext internalContext = RuntimeContext(context);
 
     compoundStatement->interpret(environment, internalContext);
