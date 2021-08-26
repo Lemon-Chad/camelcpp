@@ -7,8 +7,16 @@ Work in progress.
 Documentation is still being worked on. This should help you to be able to create simple Camel programs.
 
 ## Built-in Functions
-Work in progress. More coming soon.<br>
-`print(arguments...)`
+Work in progress. More coming soon.
+<br>`print(arguments...)`
+<br>`printLine(arguments...)`
+
+<br>`input()`
+<br>`inputLine()`
+
+<br>`int(argument)`
+<br>`dec(argument)`
+<br>`str(argument)`
 
 ### Variable Declaration
 ```
