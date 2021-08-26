@@ -3,6 +3,14 @@
 Camel programming language c++ implementation.
 Work in progress.
 
+## Compiling Camel with GCC
+```
+g++ main.cpp
+```
+If your g++ is not on C++11 by default use:
+```
+g++ -std=c++0x main.cpp
+```
 ## Some Quick Documentation
 Documentation is still being worked on. This should help you to be able to create simple Camel programs.
 
