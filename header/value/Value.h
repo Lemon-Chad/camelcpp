@@ -1,7 +1,3 @@
-//
-// Created by Myles Harris on 8/23/21.
-//
-
 #ifndef CAMELCPP_VALUE_H
 #define CAMELCPP_VALUE_H
 

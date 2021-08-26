@@ -1,7 +1,3 @@
-//
-// Created by Myles Harris on 8/24/21.
-//
-
 #include "../../header/node/NodeVariable.h"
 #include "../../header/native/Instance.h"
 

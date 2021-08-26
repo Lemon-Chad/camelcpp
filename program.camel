@@ -4,3 +4,11 @@ print("Enter two numbers: ")
 !operandR(dec(input()))
 
 printLine("\{operandL} multiplied by \{operandR} equals \{operandL * operandR}!")
+
+!file(Files.open("program"))
+
+file.print()
+file.printLine()
+
+file.input()
+file.inputLine()

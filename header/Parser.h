@@ -1,7 +1,3 @@
-//
-// Created by Myles Harris on 8/22/21.
-//
-
 #ifndef CAMELCPP_PARSER_H
 #define CAMELCPP_PARSER_H
 

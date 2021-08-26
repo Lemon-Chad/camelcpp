@@ -1,7 +1,3 @@
-//
-// Created by Myles Harris on 8/23/21.
-//
-
 #ifndef CAMELCPP_NODEBOOLEAN_H
 #define CAMELCPP_NODEBOOLEAN_H
 

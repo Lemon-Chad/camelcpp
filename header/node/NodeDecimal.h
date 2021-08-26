@@ -1,7 +1,3 @@
-//
-// Created by Myles Harris on 8/24/21.
-//
-
 #ifndef CAMELCPP_NODEDECIMAL_H
 #define CAMELCPP_NODEDECIMAL_H
 
