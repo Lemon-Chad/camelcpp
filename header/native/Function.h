@@ -1,4 +1,3 @@
-//
 #ifndef CAMELCPP_FUNCTION_H
 #define CAMELCPP_FUNCTION_H
 

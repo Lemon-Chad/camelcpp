@@ -1,4 +1,4 @@
-#include "../../header/function/Instance.h"
+#include "../../header/native/Instance.h"
 
 Instance::Instance(RuntimeEnvironment &environment, RuntimeContext &context) : environment(environment), internalContext(context) {}
 

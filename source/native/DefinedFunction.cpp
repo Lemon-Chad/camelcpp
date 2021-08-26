@@ -1,4 +1,4 @@
-#include "../../header/function/DefinedFunction.h"
+#include "../../header/native/DefinedFunction.h"
 
 DefinedFunction::DefinedFunction(RuntimeContext &context, NodeEnclosedCompoundStatement &compoundStatement)
 : parentContext(context), compoundStatement(compoundStatement) {}
