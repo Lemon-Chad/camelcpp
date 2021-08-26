@@ -26,6 +26,7 @@ Work in progress. More coming soon.
 Example:
 ```
 !bestProgrammingLanguage("Camel")
+!someNumber(5 + 10)
 ```
 
 ### Function Declaration
@@ -121,4 +122,9 @@ Static blocks can be used to create enumerations.
     !orange(Color(255, 165, 0))
     !green(Color(0, 255, 0))
 }
+```
+
+### Format Strings
+```
+"Hello \{name}"
 ```
