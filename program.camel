@@ -1,1 +1,6 @@
-printFail()
+print("Enter two numbers: ")
+
+!operandL(dec(input()))
+!operandR(dec(input()))
+
+printLine("\{operandL} multiplied by \{operandR} equals \{operandL * operandR}!")

@@ -93,13 +93,13 @@ static vector<Token> tokenizeStringLiteral(CharacterReader &reader) {
 
     vector<Token> tokenList;
 
-    bool formatString;
+    bool formatString = false;
 
     while (true) {
         reader.next_str();
 
         if (reader.curr() == '\\') {
-            bool successfulEscape;
+            bool successfulEscape = false;
 
             const int escapeCharactersLength = 3;
             const char *escapeCharacters[escapeCharactersLength] = {"n", "\"", "\\"};
