@@ -15,7 +15,7 @@ Value* LiteralDecimal::performUnaryOperation(Operation::Operation operation) {
 
 Value *LiteralDecimal::performBinaryOperation(Operation::Operation operation, Value* other) {
     if (dynamic_cast<LiteralDecimal*>(other))
-        return Helper::performDecimalOperation(operation, value, dynamic_cast<LiteralInteger*>(other)->getValue());
+        return Helper::performDecimalOperation(operation, value, dynamic_cast<LiteralDecimal*>(other)->getValue());
 
     if (dynamic_cast<LiteralInteger*>(other))
         return Helper::performDecimalOperation(operation, value, dynamic_cast<LiteralInteger*>(other)->getValue());
@@ -24,5 +24,7 @@ Value *LiteralDecimal::performBinaryOperation(Operation::Operation operation, Va
 }
 
 string LiteralDecimal::toString() {
-    return to_string(value);
+    ostringstream stream;
+    stream << fixed << setprecision(2) << value;
+    return stream.str();
 }

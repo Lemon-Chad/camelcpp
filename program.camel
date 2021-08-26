@@ -1,11 +1,1 @@
-!Person {
-    !name(param)
-
-    !sayHello {
-        print("Hello", name)
-    }
-
-    return(self)
-}
-!variablePerson(Person("Mastadons"))
-variablePerson.sayHello()
+printFail()

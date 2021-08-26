@@ -14,15 +14,7 @@ using namespace std;
 class Tokenizer {
 
 public:
-    static vector<Token> tokenize(ifstream &reader);
-
-private:
-    static Token tokenizeQualifier(CharacterReader &);
-    static Token tokenizeComment(CharacterReader &);
-    static Token tokenizeNumberLiteral(CharacterReader &, int);
-    static Token tokenizeStringLiteral(CharacterReader &);
-    static Token tokenizeOperation(CharacterReader &);
-    static Token tokenizeIdentifier(CharacterReader &);
+    static vector<Token> tokenize(basic_istream<char>* &);
 };
 
 

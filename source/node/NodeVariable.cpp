@@ -3,7 +3,7 @@
 //
 
 #include "../../header/node/NodeVariable.h"
-#include "../../header/function/Instance.h"
+#include "../../header/native/Instance.h"
 
 NodeVariable::NodeVariable(vector<string> identifiers) : identifiers(identifiers) {}
 

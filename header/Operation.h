@@ -21,6 +21,7 @@ namespace Operation {
         LOGICAL_AND,
         LOGICAL_OR,
         UNARY_NOT,
+        REFERENCE,
         UNKNOWN
     };
 }

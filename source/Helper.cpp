@@ -84,6 +84,14 @@ namespace Helper {
                 return "STATIC";
             case TokenType::OR:
                 return "OR";
+            case TokenType::FORMAT_STRING:
+                return "FORMAT_STRING";
+            case TokenType::L_FORMAT_EXPRESSION:
+                return "L_FORMAT_EXPRESSION";
+            case TokenType::R_FORMAT_EXPRESSION:
+                return "R_FORMAT_EXPRESSION";
+            case TokenType::REFERENCE:
+                return "REFERENCE";
             default:
                 return "UNKNOWN";
         };

@@ -17,18 +17,18 @@ int main(int argumentCount, char *arguments[]) {
 
     string programFileName = arguments[1];
 
-    ifstream programFile;
-    programFile.open(programFileName, ios::in);
+    ifstream* programFile = new ifstream();
+    programFile->open(programFileName, ios::in);
 
-    if (!programFile.is_open()) {
+    if (!programFile->is_open()) {
         cout << "The specified programFile \"" << programFileName << "\" does not exist." << endl;
         return -2;
     }
 
     // Camel Language Implementation
-    vector<Token> tokenList = Tokenizer::tokenize(programFile);
+    vector<Token> tokenList = Tokenizer::tokenize(reinterpret_cast<basic_istream<char> *&>(programFile));
 
-    programFile.close();
+    programFile->close();
 
     for (int i=0; i<tokenList.size(); ++i) {
         Token token = tokenList[i];

@@ -1,5 +1,5 @@
 #include "../../header/node/NodeFunctionDeclarationStatement.h"
-#include "../../header/function/DefinedFunction.h"
+#include "../../header/native/DefinedFunction.h"
 
 
 NodeFunctionDeclarationStatement::NodeFunctionDeclarationStatement(NodeVariable variable, NodeEnclosedCompoundStatement compoundStatement)

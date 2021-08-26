@@ -3,8 +3,7 @@
 
 using namespace std;
 
-CharacterReader::CharacterReader(ifstream &inputFileStream_)
-        : inputFileStream(inputFileStream_) {}
+CharacterReader::CharacterReader(basic_istream<char>* &inputStream) : inputStream(inputStream) {}
 
 char CharacterReader::curr()
 {
@@ -13,7 +12,7 @@ char CharacterReader::curr()
 
 char CharacterReader::next()
 {
-    inputFileStream.get(currentCharacter);
+    inputStream->get(currentCharacter);
 
     return currentCharacter;
 }
@@ -22,11 +21,11 @@ char CharacterReader::peek()
 {
     char previewCharacter;
 
-    int marker = inputFileStream.tellg();
+    int marker = inputStream->tellg();
 
-    inputFileStream.get(previewCharacter);
+    inputStream->get(previewCharacter);
 
-    inputFileStream.seekg(marker);
+    inputStream->seekg(marker);
 
     return previewCharacter;
 }

@@ -41,7 +41,11 @@ namespace TokenType {
         WHITESPACE,
         UNKNOWN,
         STATIC,
-        OR
+        OR,
+        FORMAT_STRING,
+        L_FORMAT_EXPRESSION,
+        R_FORMAT_EXPRESSION,
+        REFERENCE
     };
 }
 

@@ -7,9 +7,13 @@
 
 #include "../Operation.h"
 #include "../runtime/Field.h"
+#include "../runtime/RuntimeEnvironment.h"
+#include "../runtime/RuntimeContext.h"
 
 
 class Field;
+class RuntimeEnvironment;
+class RuntimeContext;
 
 class Value {
 public:

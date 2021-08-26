@@ -6,10 +6,10 @@
 class CharacterReader {
 private:
     char currentCharacter;
-    ifstream &inputFileStream;
+    basic_istream<char>* inputStream;
 
 public:
-    CharacterReader(ifstream &inputFileStream);
+    CharacterReader(basic_istream<char>* &inputFileStream);
 
     char curr();
     char peek();

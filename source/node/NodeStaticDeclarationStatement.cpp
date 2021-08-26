@@ -1,5 +1,5 @@
 #include "../../header/node/NodeStaticDeclarationStatement.h"
-#include "../../header/function/Instance.h"
+#include "../../header/native/Instance.h"
 
 
 NodeStaticDeclarationStatement::NodeStaticDeclarationStatement(string identifier, NodeEnclosedCompoundStatement* compoundStatement)

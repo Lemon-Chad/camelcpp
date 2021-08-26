@@ -1,5 +1,5 @@
 #include "../../header/node/NodeInvocationStatement.h"
-#include "../../header/function/Function.h"
+#include "../../header/native/Function.h"
 
 
 NodeInvocationStatement::NodeInvocationStatement(NodeVariable variable, NodeArgumentList argumentList)
@@ -12,10 +12,6 @@ Value * NodeInvocationStatement::interpret(RuntimeEnvironment &environment, Runt
 
     for (Node *argumentNode : argumentList.getArgumentList())
         arguments.push_back(argumentNode->interpret(environment, context));
-
-    if (identifiers.size() == 1 && identifiers[0] == "return") {
-        return new LiteralReturn(arguments[0]);
-    }
 
     Value *variableValue = variable.interpret(environment, context);
 

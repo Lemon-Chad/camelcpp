@@ -1,5 +1,4 @@
 #include "../../header/node/NodeDecimal.h"
-#include "../../header/literal/LiteralDecimal.h"
 
 
 NodeDecimal::NodeDecimal(float value) : value(value) {}

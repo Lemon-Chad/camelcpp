@@ -7,18 +7,19 @@ using namespace std;
 
 static TokenType::TokenType fromSingleOperation(char);
 static TokenType::TokenType fromDoubleOperation(string);
-static TokenType::TokenType fromKeyword(string keyword);
+static TokenType::TokenType fromKeyword(string);
+
+static Token tokenizeQualifier(CharacterReader &);
+static Token tokenizeComment(CharacterReader &);
+static Token tokenizeNumberLiteral(CharacterReader &, int);
+static vector<Token> tokenizeStringLiteral(CharacterReader &);
+static Token tokenizeOperation(CharacterReader &);
+static Token tokenizeIdentifier(CharacterReader &);
 
 static const string OPERATION_CHARACTERS = "!?>+-*/^<=,(){}|&";
 
-enum Exception {
-    UNKNOWN_SYMBOL=-15,
-    UNKNOWN_OPERATOR=-16
-};
-
-vector<Token> Tokenizer::tokenize(ifstream &inputFileStream)
-{
-    CharacterReader reader = CharacterReader(inputFileStream);
+vector<Token> Tokenizer::tokenize(basic_istream<char>* &inputStream) {
+    CharacterReader reader = CharacterReader(inputStream);
 
     vector<Token> tokenList;
 
@@ -32,7 +33,8 @@ vector<Token> Tokenizer::tokenize(ifstream &inputFileStream)
             tokenList.push_back(tokenizeNumberLiteral(reader, 0));
         }
         else if (reader.curr() == '"') {
-            tokenList.push_back(tokenizeStringLiteral(reader));
+            for (auto & stringComponent : tokenizeStringLiteral(reader))
+                tokenList.push_back(stringComponent);
         }
         else if (reader.curr() == '.') {
             tokenList.push_back(tokenizeQualifier(reader));
@@ -47,7 +49,7 @@ vector<Token> Tokenizer::tokenize(ifstream &inputFileStream)
             tokenList.push_back(Token(TokenType::WHITESPACE, reader.curr_str()));
         }
         else {
-            throw Exception::UNKNOWN_SYMBOL;
+            throw "UnknownSymbol";
         }
     }
 
@@ -56,16 +58,12 @@ vector<Token> Tokenizer::tokenize(ifstream &inputFileStream)
     return tokenList;
 }
 
-//Token::Token(TokenType type, string content, Position startPosition, Position closePosition)
-
-Token Tokenizer::tokenizeQualifier(CharacterReader &reader)
-{
-    if (isdigit(reader.peek())) return Tokenizer::tokenizeNumberLiteral(reader, 1);
+static Token tokenizeQualifier(CharacterReader &reader) {
+    if (isdigit(reader.peek())) return tokenizeNumberLiteral(reader, 1);
     return Token(TokenType::QUALIFIER, ".");
 }
 
-Token Tokenizer::tokenizeComment(CharacterReader &reader)
-{
+static Token tokenizeComment(CharacterReader &reader) {
     stringstream commentStream;
 
     do commentStream << reader.next();
@@ -76,17 +74,13 @@ Token Tokenizer::tokenizeComment(CharacterReader &reader)
     return Token(TokenType::COMMENT, comment.substr(1, comment.length() - 2));
 }
 
-Token Tokenizer::tokenizeNumberLiteral(CharacterReader &reader, int decimalCount)
-{
+static Token tokenizeNumberLiteral(CharacterReader &reader, int decimalCount) {
     stringstream number;
     number << reader.curr();
 
-    while (reader.peek() && (isdigit(reader.peek()) || reader.peek() == '.'))
-    {
+    while (reader.peek() && (isdigit(reader.peek()) || reader.peek() == '.')) {
         if (reader.peek() == '.')
-        {
             if (++decimalCount > 1) break;
-        }
 
         number << reader.next();
     }
@@ -94,21 +88,70 @@ Token Tokenizer::tokenizeNumberLiteral(CharacterReader &reader, int decimalCount
     return Token(TokenType::NUMBER, number.str());
 }
 
-Token Tokenizer::tokenizeStringLiteral(CharacterReader &reader)
-{
+static vector<Token> tokenizeStringLiteral(CharacterReader &reader) {
     stringstream stringLiteralStream;
 
+    vector<Token> tokenList;
 
-    do stringLiteralStream << reader.next();
-    while (reader.curr() != '"');
+    bool formatString;
 
-    string stringLiteral = stringLiteralStream.str();
+    while (true) {
+        reader.next_str();
 
-    return Token(TokenType::STRING, stringLiteral.substr(0, stringLiteral.length() - 1));
+        if (reader.curr() == '\\') {
+            bool successfulEscape;
+
+            const int escapeCharactersLength = 3;
+            const char *escapeCharacters[escapeCharactersLength] = {"n", "\"", "\\"};
+            const char *escapeReplacements[escapeCharactersLength] = {"\n", "\"", "\\"};
+
+            for (int i=0; i<escapeCharactersLength; i++) {
+                if (reader.peek_str() == escapeCharacters[i]) {
+                    stringLiteralStream << escapeReplacements[i];
+                    reader.next();
+                    successfulEscape = true;
+                    break;
+                }
+            }
+
+            if (!successfulEscape && reader.peek() == '{') {
+                stringstream formatExpression;
+
+                tokenList.emplace_back(TokenType::FORMAT_STRING, stringLiteralStream.str());
+                stringLiteralStream.str(string());
+
+                reader.next();
+                while (reader.next() != '}')
+                    formatExpression << reader.curr();
+
+                istringstream* iformatExpression = new istringstream(formatExpression.str());
+
+                vector<Token> expressionTokenList = Tokenizer::tokenize(reinterpret_cast<basic_istream<char> *&>(iformatExpression));
+
+                tokenList.push_back(Token(TokenType::L_FORMAT_EXPRESSION, "{"));
+
+                for (int i=0; i<expressionTokenList.size()-1; i++) tokenList.push_back(expressionTokenList[i]);
+
+                tokenList.push_back(Token(TokenType::R_FORMAT_EXPRESSION, "}"));
+
+                successfulEscape = true;
+                formatString = true;
+            }
+
+            if (!successfulEscape) throw "InvalidStringEscape";
+        }
+        else if (reader.curr() == '"') {
+            string stringLiteral = stringLiteralStream.str();
+            if (!stringLiteral.empty())
+                tokenList.push_back(Token(formatString ? TokenType::FORMAT_STRING : TokenType::STRING, stringLiteral));
+
+            return tokenList;
+        }
+        else stringLiteralStream << reader.curr();
+    }
 }
 
-Token Tokenizer::tokenizeOperation(CharacterReader &reader)
-{
+static Token tokenizeOperation(CharacterReader &reader) {
     if (reader.peek()) {
         const int operatorsLength = 11;
 
@@ -116,40 +159,32 @@ Token Tokenizer::tokenizeOperation(CharacterReader &reader)
 
         string possibleOperator = reader.curr_str() + reader.peek_str();
 
-        for (int i=0; i<operatorsLength; i++)
-        {
-            if (possibleOperator == doubleCharacterOperators[i])
-            {
+        for (int i=0; i<operatorsLength; i++) {
+            if (possibleOperator == doubleCharacterOperators[i]) {
                 reader.next();
                 return Token(fromDoubleOperation(doubleCharacterOperators[i]), doubleCharacterOperators[i]);
             }
         }
     }
 
-    const int operatorsLength = 12;
+    const int operatorsLength = 13;
 
-    const char *singleCharacterOperators[operatorsLength] = {"!", "+", "-", "*", "/", ">", "<", ",", "(", ")", "{", "}"};
+    const char *singleCharacterOperators[operatorsLength] = {"!", "+", "-", "*", "/", ">", "<", ",", "(", ")", "{", "}", "&"};
 
-    for (int i=0; i<operatorsLength; i++)
-    {
+    for (int i=0; i<operatorsLength; i++) {
         if (reader.curr_str() == singleCharacterOperators[i])
-        {
             return Token(fromSingleOperation(*singleCharacterOperators[i]), string(singleCharacterOperators[i]));
-        }
     }
 
-    throw Exception::UNKNOWN_OPERATOR;
+    throw "UnknownOperator";
 }
 
-Token Tokenizer::tokenizeIdentifier(CharacterReader &reader)
-{
+static Token tokenizeIdentifier(CharacterReader &reader) {
     stringstream identifierStream;
     identifierStream << reader.curr();
 
     while (reader.peek() && (isalnum(reader.peek()) || reader.peek() == '_'))
-    {
         identifierStream << reader.next();
-    }
 
     string identifier = identifierStream.str();
 
@@ -160,8 +195,7 @@ Token Tokenizer::tokenizeIdentifier(CharacterReader &reader)
 
     const char *keywordIdentifiers[keywordsLength] = {"if", "then", "or", "loop"};
 
-    for (int i=0; i<keywordsLength; i++)
-    {
+    for (int i=0; i<keywordsLength; i++) {
         if (identifier == keywordIdentifiers[i]) {
             fromKeyword(keywordIdentifiers[i]);
 
@@ -172,7 +206,7 @@ Token Tokenizer::tokenizeIdentifier(CharacterReader &reader)
     return Token(TokenType::IDENTIFIER, identifier);
 }
 
-TokenType::TokenType fromSingleOperation(char operation)
+static TokenType::TokenType fromSingleOperation(char operation)
 {
     switch (operation) {
         case '+': return TokenType::OPERATOR_ADD;
@@ -188,6 +222,7 @@ TokenType::TokenType fromSingleOperation(char operation)
         case '$': return TokenType::PARAMETER;
         case '{': return TokenType::L_BLOCK_BRACKET;
         case '}': return TokenType::R_BLOCK_BRACKET;
+        case '&': return TokenType::REFERENCE;
         default: return TokenType::UNKNOWN;
     }
 }

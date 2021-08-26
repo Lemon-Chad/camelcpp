@@ -19,6 +19,7 @@
 #include "../source/node/NodeString.cpp"
 #include "../source/node/NodeUnaryExpression.cpp"
 #include "../source/node/NodeVariableDeclarationStatement.cpp"
+#include "../source/formatstring/NodeFormatString.cpp"
 
 #include "../source/Helper.cpp"
 #include "../source/Operand.cpp"
@@ -53,6 +54,8 @@ static NodeVariableDeclarationStatement* parseVariableDeclarationStatement(Token
 static NodeFunctionDeclarationStatement* parseFunctionDeclarationStatement(TokenIterator &);
 static NodeInvocationStatement* parseInvocationStatement(TokenIterator &);
 static NodeLoopStatement* parseLoopStatement(TokenIterator &);
+static NodeFormatString* parseFormatString(TokenIterator &);
+static FormatStringComponent* parseFormatStringComponent(TokenIterator &);
 
 static bool isUnaryOperation(Operation::Operation operation);
 static bool isLogicalOperation(Operation::Operation operation);
@@ -496,25 +499,22 @@ static Node* parseComparisonExpression(TokenIterator &tokenIterator) {
 
             Node* internalTerm = parseArithmeticExpression(tokenIterator);
 
-            if (internalTerm == nullptr)
-            {
+            if (internalTerm == nullptr) {
                 tokenIterator.reset(internalMarker);
                 break;
             }
 
             operandList.push_back(Operand(operation, internalTerm));
         }
-        else
-        {
+        else {
             tokenIterator.reset(internalMarker);
             break;
         }
     }
 
     if (operandList.empty())
-    {
         return term;
-    }
+
     return new NodeExpression(term, operandList);
 }
 
@@ -613,6 +613,9 @@ static Node* parseTerm(TokenIterator &tokenIterator) {
     int marker = tokenIterator.currentIndex();
 
     Node* node;
+
+    if ((node = parseFormatString(tokenIterator)) != nullptr)
+        return node;
 
     if ((node = parseUnaryExpression(tokenIterator)) != nullptr)
         return node;
@@ -727,6 +730,58 @@ static NodeBoolean* parseBoolean(TokenIterator &tokenIterator) {
 
     tokenIterator.next();
     return NodeBoolean::parseBoolean(tokenIterator.prev().getContent());
+}
+
+static NodeFormatString* parseFormatString(TokenIterator &tokenIterator) {
+    int marker = tokenIterator.currentIndex();
+
+    if (tokenIterator.curr().getType() != TokenType::FORMAT_STRING) {
+        tokenIterator.reset(marker);
+        return nullptr;
+    }
+
+    vector<FormatStringComponent*> componentList;
+
+    FormatStringComponent* component;
+    while (true) {
+        if ((component = parseFormatStringComponent(tokenIterator)) != nullptr) {
+            componentList.push_back(component);
+        }
+        else break;
+    }
+
+    return new NodeFormatString(componentList);
+}
+
+static FormatStringComponent* parseFormatStringComponent(TokenIterator &tokenIterator) {
+    int marker = tokenIterator.currentIndex();
+
+    if (tokenIterator.curr().getType() == TokenType::FORMAT_STRING) {
+        tokenIterator.next();
+        return new StaticFormatStringComponent(tokenIterator.prev().getContent());
+    }
+
+    if (tokenIterator.curr().getType() != TokenType::L_FORMAT_EXPRESSION) {
+        tokenIterator.reset(marker);
+        return nullptr;
+    }
+
+    tokenIterator.next();
+    Node* expression = parseExpression(tokenIterator);
+
+    if (expression == nullptr) {
+        tokenIterator.reset(marker);
+        return nullptr;
+    }
+
+    if (tokenIterator.curr().getType() != TokenType::R_FORMAT_EXPRESSION) {
+        tokenIterator.reset(marker);
+        return nullptr;
+    }
+
+    tokenIterator.next();
+
+    return new ExpressionFormatStringComponent(expression);
 }
 
 static NodeString* parseString(TokenIterator &tokenIterator) {
@@ -852,6 +907,7 @@ static Operation::Operation fromTokenType(TokenType::TokenType tokenType) {
 static bool isUnaryOperation(Operation::Operation operation) {
     if (operation == Operation::ADDITION) return true;
     if (operation == Operation::SUBTRACTION) return true;
+    if (operation == Operation::REFERENCE) return true;
     return operation == Operation::UNARY_NOT;
 }
 
