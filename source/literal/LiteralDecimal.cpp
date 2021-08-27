@@ -3,9 +3,6 @@
 
 using namespace std;
 
-
-typedef std::numeric_limits<double> doubleLimit;
-
 LiteralDecimal::LiteralDecimal(float value) : value(value) {}
 
 Value* LiteralDecimal::performUnaryOperation(Operation::Operation operation) {
