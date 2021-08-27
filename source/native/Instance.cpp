@@ -1,13 +1,13 @@
 #include "../../header/native/Instance.h"
 
-Instance::Instance(RuntimeEnvironment &environment, RuntimeContext &context) : environment(environment), internalContext(context) {}
+Instance::Instance(RuntimeEnvironment &environment, RuntimeContext* &context) : environment(environment), internalContext(context) {}
 
 Field* Instance::accessField(vector<string> accessedName) {
-    return internalContext.accessField(accessedName);
+    return internalContext->accessField(accessedName);
 }
 
 Field* Instance::createField(string createdName, Value *createdValue) {
-    return internalContext.createField(createdName, createdValue);
+    return internalContext->createField(createdName, createdValue);
 }
 
 Value* Instance::performUnaryOperation(Operation::Operation) {

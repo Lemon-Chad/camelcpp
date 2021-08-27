@@ -3,7 +3,7 @@
 
 NodeCompoundStatement::NodeCompoundStatement(const list<NodeStatement*> &statementList) : statementList(statementList) {}
 
-Value * NodeCompoundStatement::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
+Value * NodeCompoundStatement::interpret(RuntimeEnvironment &environment, RuntimeContext* &context) {
     for (NodeStatement* statement : statementList) {
         Value* statementValue = statement->interpret(environment, context);
 

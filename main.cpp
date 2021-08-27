@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include <vector>
 
 #include "source/token/Tokenizer.cpp"
@@ -9,13 +10,47 @@ using namespace std;
 
 const string CAMEL_VERSION = "Beta 1.0.0";
 
+struct ProgramFlags {
+    bool v;
+    bool t;
+    bool p;
+    bool h;
+};
+
 int main(int argumentCount, char *arguments[]) {
-    if (argumentCount < 2) {
+    auto milliseconds1 = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
+
+    ProgramFlags programFlags;
+
+    int argumentIndex = 1;
+    for (; argumentIndex<argumentCount; ++argumentIndex) {
+        if (strcmp(arguments[argumentIndex], "-v") == 0)
+            programFlags.v = true;
+        else if (strcmp(arguments[argumentIndex], "-t") == 0)
+            programFlags.t = true;
+        else if (strcmp(arguments[argumentIndex], "-p") == 0)
+            programFlags.p = true;
+        else if (strcmp(arguments[argumentIndex], "-h") == 0)
+            programFlags.h = true;
+        else break;
+    }
+
+    if (programFlags.v) {
+        cout << CAMEL_VERSION << endl;
+        return 1;
+    }
+
+    if (programFlags.h) {
+        cout << "camel <-v|-t|-p|-h> <programFile" << endl;
+        return 2;
+    }
+
+    if (argumentIndex == argumentCount) {
         cout << "Please provide a filename to run." << endl;
         return -1;
     }
 
-    string programFileName = arguments[1];
+    string programFileName = arguments[argumentIndex];
 
     ifstream* programFile = new ifstream();
     programFile->open(programFileName, ios::in);
@@ -40,11 +75,26 @@ int main(int argumentCount, char *arguments[]) {
         }
     }
 
+    if (programFlags.t) {
+        for (auto &token : tokenList)
+            cout << left << setw(40) << ("TokenType::" + Helper::tokenTypeName(token.getType())) << " Content: \"" << token.getContent() << "\"" << endl;
+
+        cout << "Tokenized: " << tokenList.size() << endl;
+
+        return 3;
+    }
+
     TokenIterator tokenIterator = TokenIterator(tokenList);
 
     NodeCompoundStatement compoundStatement = *Parser::parse(tokenIterator);
 
     Interpreter::interpret(compoundStatement);
+
+    auto milliseconds2 = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
+
+    if (programFlags.p) {
+        cout << "Total time running: " << (milliseconds2 - milliseconds1) << "ms" << endl;
+    }
 
     return 0;
 }

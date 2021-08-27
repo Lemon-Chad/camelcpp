@@ -6,7 +6,7 @@
 
 class NodeNumber: public Node {
 public:
-    virtual Value * interpret(RuntimeEnvironment &, RuntimeContext &) = 0;
+    virtual Value * interpret(RuntimeEnvironment &, RuntimeContext* &) = 0;
 };
 
 

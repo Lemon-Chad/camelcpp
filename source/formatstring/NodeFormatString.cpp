@@ -6,7 +6,7 @@ using namespace std;
 
 NodeFormatString::NodeFormatString(vector<FormatStringComponent *> &componentList) : componentList(componentList) {}
 
-Value* NodeFormatString::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
+Value* NodeFormatString::interpret(RuntimeEnvironment &environment, RuntimeContext* &context) {
     stringstream formatStringStream;
 
     for (auto & component : componentList)

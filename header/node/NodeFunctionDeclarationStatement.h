@@ -16,7 +16,7 @@ private:
 public:
     NodeFunctionDeclarationStatement(NodeVariable, NodeEnclosedCompoundStatement);
 
-    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext* &);
 
     NodeVariable getVariable() { return variable; }
     NodeEnclosedCompoundStatement getCompoundStatement() { return compoundStatement; }

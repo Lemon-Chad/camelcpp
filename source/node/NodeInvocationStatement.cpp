@@ -5,7 +5,7 @@
 NodeInvocationStatement::NodeInvocationStatement(NodeVariable variable, NodeArgumentList argumentList)
         : variable(variable), argumentList(argumentList) {}
 
-Value * NodeInvocationStatement::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
+Value * NodeInvocationStatement::interpret(RuntimeEnvironment &environment, RuntimeContext* &context) {
     vector<string> identifiers = variable.getIdentifiers();
 
     vector<Value *> arguments;
@@ -24,8 +24,8 @@ Value * NodeInvocationStatement::interpret(RuntimeEnvironment &environment, Runt
     string ident = identifiers[0];
 
     if (arguments.empty())
-        context.accessField(identifiers)->setValue(nullptr);
+        context->accessField(identifiers)->setValue(nullptr);
 
-    context.accessField(identifiers)->setValue(arguments[0]);
+    context->accessField(identifiers)->setValue(arguments[0]);
     return arguments[0];
 }

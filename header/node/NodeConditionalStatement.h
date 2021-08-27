@@ -16,7 +16,7 @@ private:
 public:
     NodeConditionalStatement(Conditional*, Conditional*, list<Conditional*>);
 
-    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext* &);
 
     Conditional* getInitialConditional() { return initialConditional; }
     Conditional* getDefaultConditional() { return defaultConditional; }

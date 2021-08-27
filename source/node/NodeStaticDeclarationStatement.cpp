@@ -5,14 +5,14 @@
 NodeStaticDeclarationStatement::NodeStaticDeclarationStatement(string identifier, NodeEnclosedCompoundStatement* compoundStatement)
 : identifier(identifier), compoundStatement(compoundStatement) {}
 
-Value * NodeStaticDeclarationStatement::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
-    RuntimeContext internalContext = RuntimeContext(context);
+Value * NodeStaticDeclarationStatement::interpret(RuntimeEnvironment &environment, RuntimeContext* &context) {
+    RuntimeContext* internalContext = new RuntimeContext(context);
 
     compoundStatement->interpret(environment, internalContext);
 
     Instance* instance = new Instance(environment, internalContext);
 
-    context.createField(identifier, instance);
+    context->createField(identifier, instance);
 
     return instance;
 }

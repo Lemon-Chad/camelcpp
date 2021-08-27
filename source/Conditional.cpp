@@ -4,7 +4,7 @@
 
 Conditional::Conditional(Node* &expression, NodeEnclosedCompoundStatement* &compoundStatement): expression(expression), compoundStatement(compoundStatement) {}
 
-bool Conditional::interpret(RuntimeEnvironment &environment, RuntimeContext &context) {
+bool Conditional::interpret(RuntimeEnvironment &environment, RuntimeContext* &context) {
     if (expression == nullptr) {
         compoundStatement->getEnclosedStatement()->interpret(environment, context);
         return true;

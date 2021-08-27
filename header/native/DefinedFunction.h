@@ -6,11 +6,11 @@
 
 class DefinedFunction: public Function {
 private:
-    RuntimeContext parentContext;
+    RuntimeContext* parentContext;
     NodeEnclosedCompoundStatement compoundStatement;
 
 public:
-    DefinedFunction(RuntimeContext &, NodeEnclosedCompoundStatement &);
+    DefinedFunction(RuntimeContext* &, NodeEnclosedCompoundStatement &);
 
     Value* invokeFunction(RuntimeEnvironment &, vector<Value *> &) override;
 

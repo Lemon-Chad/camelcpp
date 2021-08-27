@@ -13,7 +13,7 @@ public:
 
     NodeInteger(int);
 
-    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext* &);
 
     int getValue() { return value; }
 };

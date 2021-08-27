@@ -13,7 +13,7 @@ private:
 public:
     Conditional(Node* &, NodeEnclosedCompoundStatement* &);
 
-    bool interpret(RuntimeEnvironment &, RuntimeContext &);
+    bool interpret(RuntimeEnvironment &, RuntimeContext* &);
 
     const Node* getExpression() { return expression; };
     const NodeEnclosedCompoundStatement* getCompoundStatement() { return compoundStatement; }

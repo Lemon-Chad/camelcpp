@@ -7,7 +7,7 @@
 
 class FormatStringComponent {
 public:
-    virtual string interpret(RuntimeEnvironment &, RuntimeContext &) = 0;
+    virtual string interpret(RuntimeEnvironment &, RuntimeContext* &) = 0;
 };
 
 class StaticFormatStringComponent: public FormatStringComponent {
@@ -17,7 +17,7 @@ private:
 public:
     StaticFormatStringComponent(string);
 
-    string interpret(RuntimeEnvironment &, RuntimeContext &) override;
+    string interpret(RuntimeEnvironment &, RuntimeContext* &) override;
 };
 
 class ExpressionFormatStringComponent: public FormatStringComponent {
@@ -27,7 +27,7 @@ private:
 public:
     ExpressionFormatStringComponent(Node* &);
 
-    string interpret(RuntimeEnvironment &, RuntimeContext &) override;
+    string interpret(RuntimeEnvironment &, RuntimeContext* &) override;
 };
 
 

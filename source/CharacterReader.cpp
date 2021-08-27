@@ -21,11 +21,8 @@ char CharacterReader::peek()
 {
     char previewCharacter;
 
-    int marker = inputStream->tellg();
-
     inputStream->get(previewCharacter);
-
-    inputStream->seekg(marker);
+    inputStream->putback(previewCharacter);
 
     if (inputStream->fail() || inputStream->eof()) return 0;
 

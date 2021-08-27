@@ -5,10 +5,10 @@
 class Instance: public Value {
 private:
     RuntimeEnvironment environment;
-    RuntimeContext internalContext;
+    RuntimeContext* internalContext;
 
 public:
-    Instance(RuntimeEnvironment &, RuntimeContext &);
+    Instance(RuntimeEnvironment &, RuntimeContext* &);
 
     Field* accessField(vector<string>);
     Field* createField(string, Value*);

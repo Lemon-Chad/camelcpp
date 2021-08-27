@@ -14,7 +14,7 @@ private:
 public:
     NodeUnaryExpression(Operation::Operation, Node* &);
 
-    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext* &);
 
     Operation::Operation getOperation() { return operation; }
     Node* getTerm() { return term; }

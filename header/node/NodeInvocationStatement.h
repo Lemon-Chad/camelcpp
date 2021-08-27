@@ -16,7 +16,7 @@ private:
 public:
     NodeInvocationStatement(NodeVariable, NodeArgumentList);
 
-    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext* &);
 
     NodeVariable getVariable() { return variable; }
     NodeArgumentList getArgumentList() { return argumentList; }

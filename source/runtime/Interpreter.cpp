@@ -41,5 +41,5 @@ void Interpreter::interpret(NodeCompoundStatement &statement) {
     Function* parseStrFunction = new ParseStrFunction();
     context->createField("str", reinterpret_cast<Value *&>(parseStrFunction));
 
-    statement.interpret(environment, *context);
+    statement.interpret(environment, context);
 }

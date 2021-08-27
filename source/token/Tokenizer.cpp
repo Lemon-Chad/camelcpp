@@ -180,6 +180,10 @@ static Token tokenizeOperation(CharacterReader &reader) {
     throw "UnknownOperator";
 }
 
+const int keywordsLength = 4;
+
+const char *keywordIdentifiers[keywordsLength] = {"if", "then", "or", "loop"};
+
 static Token tokenizeIdentifier(CharacterReader &reader) {
     stringstream identifierStream;
     identifierStream << reader.curr();
@@ -191,10 +195,6 @@ static Token tokenizeIdentifier(CharacterReader &reader) {
 
     if (identifier == "true" || identifier == "false")
         return Token(TokenType::BOOLEAN, identifier);
-
-    const int keywordsLength = 4;
-
-    const char *keywordIdentifiers[keywordsLength] = {"if", "then", "or", "loop"};
 
     for (int i=0; i<keywordsLength; i++) {
         if (identifier == keywordIdentifiers[i]) {

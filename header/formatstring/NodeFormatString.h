@@ -12,7 +12,7 @@ private:
 public:
     NodeFormatString(vector<FormatStringComponent*> &);
 
-    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext* &);
 };
 
 

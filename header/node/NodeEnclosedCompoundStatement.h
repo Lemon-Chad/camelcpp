@@ -11,7 +11,7 @@ private:
 public:
     NodeEnclosedCompoundStatement(NodeCompoundStatement*);
 
-    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext* &);
 
     NodeCompoundStatement* getEnclosedStatement() { return enclosedStatement; }
 };

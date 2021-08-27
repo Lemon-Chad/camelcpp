@@ -15,7 +15,7 @@ private:
 
 public:
     NodeExpression(Node* &, list<Operand> &);
-    Value * interpret(RuntimeEnvironment &, RuntimeContext &);
+    Value * interpret(RuntimeEnvironment &, RuntimeContext* &);
 };
 
 
