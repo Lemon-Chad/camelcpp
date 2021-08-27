@@ -25,6 +25,7 @@ vector<Token> Tokenizer::tokenize(basic_istream<char>* &inputStream) {
 
     while (reader.peek()) {
         reader.next();
+        reader.curr_str();
 
         if (reader.curr() == '#') {
             tokenList.push_back(tokenizeComment(reader));
