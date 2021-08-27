@@ -27,6 +27,8 @@ char CharacterReader::peek()
 
     inputStream->seekg(marker);
 
+    if (inputStream->fail() || inputStream->eof()) return 0;
+
     return previewCharacter;
 }
 
