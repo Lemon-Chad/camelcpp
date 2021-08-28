@@ -5,6 +5,7 @@
 #include "../runtime/Field.h"
 #include "../runtime/RuntimeEnvironment.h"
 #include "../runtime/RuntimeContext.h"
+#include <string>
 
 
 class Field;

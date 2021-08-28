@@ -1,6 +1,7 @@
 #ifndef CAMELCPP_NODEBOOLEAN_H
 #define CAMELCPP_NODEBOOLEAN_H
 
+#include <string>
 
 class NodeBoolean: public Node {
 private:

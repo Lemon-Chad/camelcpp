@@ -1,6 +1,7 @@
 #ifndef CAMELCPP_LITERALDECIMAL_H
 #define CAMELCPP_LITERALDECIMAL_H
 
+#include <string>
 
 class LiteralDecimal: public Value {
 private:

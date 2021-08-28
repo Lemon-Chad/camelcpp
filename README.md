@@ -5,11 +5,7 @@ Work in progress.
 
 ## Compiling Camel with GCC
 ```
-g++ main.cpp
-```
-If your g++ is not on C++11 by default use:
-```
-g++ -std=c++0x main.cpp
+g++ -std=c++11 -o camel main.cpp -static-libstdc++ -static-libgcc
 ```
 ## Some Quick Documentation
 Documentation is still being worked on. This should help you to be able to create simple Camel programs.

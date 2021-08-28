@@ -1,6 +1,7 @@
 #ifndef CAMELCPP_LITERALBOOLEAN_H
 #define CAMELCPP_LITERALBOOLEAN_H
 
+#include <string>
 
 class LiteralBoolean: public Value {
 private:

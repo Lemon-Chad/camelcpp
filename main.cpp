@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include <vector>
+#include <cstring>
+#include <chrono>
 
 #include "source/token/Tokenizer.cpp"
 #include "source/Parser.cpp"
@@ -20,7 +22,7 @@ struct ProgramFlags {
 int main(int argumentCount, char *arguments[]) {
     auto milliseconds1 = chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
 
-    ProgramFlags programFlags;
+    ProgramFlags programFlags= {false, false, false, false};
 
     int argumentIndex = 1;
     for (; argumentIndex<argumentCount; ++argumentIndex) {
@@ -41,7 +43,7 @@ int main(int argumentCount, char *arguments[]) {
     }
 
     if (programFlags.h) {
-        cout << "camel <-v|-t|-p|-h> <programFile" << endl;
+        cout << "camel <-v|-t|-p|-h> <programFile>" << endl;
         return 2;
     }
 

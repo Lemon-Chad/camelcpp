@@ -2,6 +2,7 @@
 #define CAMELCPP_NODESTRING_H
 
 #include "Node.h"
+#include <string>
 
 
 class NodeString: public Node {

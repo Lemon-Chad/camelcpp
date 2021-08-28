@@ -2,6 +2,7 @@
 #define CAMELCPP_NODEVARIABLEDECLARATIONSTATEMENT_H
 
 #include "NodeStatement.h"
+#include <string>
 
 
 class NodeVariableDeclarationStatement: public NodeStatement {

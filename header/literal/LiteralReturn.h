@@ -1,6 +1,7 @@
 #ifndef CAMELCPP_LITERALRETURN_H
 #define CAMELCPP_LITERALRETURN_H
 
+#include <string>
 
 class LiteralReturn: public Value {
 private:
