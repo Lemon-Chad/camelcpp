@@ -1,5 +1,6 @@
 #include <sstream>
 #include "../header/CharacterReader.h"
+#include <string>
 
 using namespace std;
 
@@ -31,7 +32,7 @@ char CharacterReader::peek()
 
 string CharacterReader::curr_str()
 {
-    std::stringstream stream;
+    stringstream stream;
     stream << curr();
 
     return stream.str();
@@ -39,7 +40,7 @@ string CharacterReader::curr_str()
 
 string CharacterReader::peek_str()
 {
-    std::stringstream stream;
+    stringstream stream;
     stream << peek();
 
     return stream.str();
@@ -47,7 +48,7 @@ string CharacterReader::peek_str()
 
 string CharacterReader::next_str()
 {
-    std::stringstream stream;
+    stringstream stream;
     stream << next();
 
     return stream.str();

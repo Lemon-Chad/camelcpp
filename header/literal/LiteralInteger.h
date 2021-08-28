@@ -1,6 +1,7 @@
 #ifndef CAMELCPP_LITERALINTEGER_H
 #define CAMELCPP_LITERALINTEGER_H
 
+#include <string>
 
 class LiteralInteger: public Value {
 private:

@@ -3,6 +3,7 @@
 
 #include "NodeStatement.h"
 #include "NodeEnclosedCompoundStatement.h"
+#include <string>
 
 using namespace std;
 

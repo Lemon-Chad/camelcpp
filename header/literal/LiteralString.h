@@ -1,6 +1,7 @@
 #ifndef CAMELCPP_LITERALSTRING_H
 #define CAMELCPP_LITERALSTRING_H
 
+#include <string>
 
 class LiteralString: public Value {
 private:

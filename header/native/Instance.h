@@ -1,6 +1,7 @@
 #ifndef CAMELCPP_INSTANCE_H
 #define CAMELCPP_INSTANCE_H
 
+#include <string>
 
 class Instance: public Value {
 private:

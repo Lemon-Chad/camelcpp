@@ -4,6 +4,7 @@
 
 #include "../runtime/RuntimeContext.h"
 #include "../node/NodeExpression.h"
+#include <string>
 
 class FormatStringComponent {
 public:

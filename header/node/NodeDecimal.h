@@ -2,6 +2,7 @@
 #define CAMELCPP_NODEDECIMAL_H
 
 #include "NodeNumber.h"
+#include <string>
 
 
 class NodeDecimal: public NodeNumber {

@@ -2,6 +2,7 @@
 #define CAMELCPP_DEFINEDFUNCTION_H
 
 #include "Function.h"
+#include <string>
 
 
 class DefinedFunction: public Function {

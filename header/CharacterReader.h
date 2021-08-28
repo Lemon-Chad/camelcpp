@@ -2,6 +2,7 @@
 #define CAMELCPP_CHARACTERREADER_H
 
 #include <fstream>
+#include <string>
 
 class CharacterReader {
 private:

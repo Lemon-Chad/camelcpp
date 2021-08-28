@@ -2,6 +2,7 @@
 #define CAMELCPP_NODEINTEGER_H
 
 #include "NodeNumber.h"
+#include <string>
 
 
 class NodeInteger: public NodeNumber {

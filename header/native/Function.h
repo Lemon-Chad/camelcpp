@@ -2,6 +2,7 @@
 #define CAMELCPP_FUNCTION_H
 
 #include <vector>
+#include <string>
 
 using namespace std;
 
