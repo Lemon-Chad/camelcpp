@@ -23,9 +23,8 @@ Value * NodeInvocationStatement::interpret(RuntimeEnvironment &environment, Runt
 
     string ident = identifiers[0];
 
-    if (arguments.empty())
-        context->accessField(identifiers)->setValue(nullptr);
-
-    context->accessField(identifiers)->setValue(arguments[0]);
+    Value* value = arguments.empty() ? nullptr : arguments[0];
+    
+    context->accessField(identifiers)->setValue(value);
     return arguments[0];
 }

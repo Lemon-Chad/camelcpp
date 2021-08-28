@@ -18,7 +18,7 @@ private:
 public:
     string getName() { return name; }
     Value* getValue() { return value; }
-    void setValue(Value* value) { this->value = value; }
+    void setValue(Value* value);
 
     Field(string, Value* &);
 };
