@@ -1,9 +1,0 @@
-!someFunction {
-    !someParameter(param)
-
-    if someParameter then { return("Hello") }
-
-    return("World")
-}
-
-printLine(someFunction(true))
