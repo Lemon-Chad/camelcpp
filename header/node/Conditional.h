@@ -5,6 +5,18 @@
 #include "NodeEnclosedCompoundStatement.h"
 
 
+class ConditionalResult {
+private:
+    Value *result;
+    bool success;
+
+public:
+    ConditionalResult(Value*, bool);
+
+    Value* getResult() { return result; }
+    bool getSuccess() { return success; }
+};
+
 class Conditional {
 private:
     Node *expression;
@@ -13,11 +25,10 @@ private:
 public:
     Conditional(Node* &, NodeEnclosedCompoundStatement* &);
 
-    bool interpret(RuntimeEnvironment &, RuntimeContext* &);
+    ConditionalResult interpret(RuntimeEnvironment &, RuntimeContext* &);
 
     const Node* getExpression() { return expression; };
     const NodeEnclosedCompoundStatement* getCompoundStatement() { return compoundStatement; }
 };
-
 
 #endif //CAMELCPP_CONDITIONAL_H

@@ -1,19 +1,29 @@
 #include "../../header/node/NodeConditionalStatement.h"
+#include <list>
 
 NodeConditionalStatement::NodeConditionalStatement(Conditional* initialConditional, Conditional* defaultConditional, list<Conditional*> additionalConditionalList)
 : initialConditional(initialConditional), defaultConditional(defaultConditional), additionalConditionalList(additionalConditionalList) {}
 
+Value* handleReturn(Value* value) {
+    if (value == nullptr) return value;
+    return new LiteralReturn(value);
+}
+
 Value * NodeConditionalStatement::interpret(RuntimeEnvironment &environment, RuntimeContext* &context) {
-    if (initialConditional->interpret(environment, context))
-        return nullptr;
+    ConditionalResult conditionalResult = initialConditional->interpret(environment, context);
+
+    if (conditionalResult.getSuccess()) 
+        return handleReturn(conditionalResult.getResult());
 
     for (Conditional* additionalConditional : additionalConditionalList) {
-        if (additionalConditional->interpret(environment, context))
-            return nullptr;
+        conditionalResult = additionalConditional->interpret(environment, context);
+        if (conditionalResult.getSuccess()) return handleReturn(conditionalResult.getResult());
     }
 
-    if (defaultConditional != nullptr)
-        defaultConditional->interpret(environment, context);
+    if (defaultConditional != nullptr) {
+        conditionalResult = defaultConditional->interpret(environment, context);
+        if (conditionalResult.getSuccess()) return handleReturn(conditionalResult.getResult());
+    }
 
     return nullptr;
 }

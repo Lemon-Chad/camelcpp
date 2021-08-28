@@ -1,24 +1,9 @@
-!ComplexNumber {
-    !real(param)
-    !imaginary(param)
+!someFunction {
+    !someParameter(param)
 
-    !str {
-        return("\{real} + \{imaginary}i")
-    }
+    if someParameter then { return("Hello") }
 
-    !add {
-        !other(param)
-        !r(other.real + real)
-        !i(other.imaginary + imaginary)
-        return(ComplexNumber(r, i))
-    }
-
-    return(self)
+    return("World")
 }
 
-
-!x(ComplexNumber(3, 5))
-!y(ComplexNumber(5, 2))
-!z(x.add(y))
-
-printLine("(\{x.str()}) + (\{y.str()}) = \{z.str()}")
+printLine(someFunction(true))
